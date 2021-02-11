@@ -1,6 +1,6 @@
-package pl.hudyweas.schoolmanagementsystem;
+package pl.hudyweas.schoolmanagementsystem.Entities;
 
-public class Student extends User{
+public class Student extends User {
     {
         type = "student";
     }

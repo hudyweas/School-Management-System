@@ -1,4 +1,4 @@
-package pl.hudyweas.schoolmanagementsystem;
+package pl.hudyweas.schoolmanagementsystem.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

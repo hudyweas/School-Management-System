@@ -1,4 +1,4 @@
-package pl.hudyweas.schoolmanagementsystem;
+package pl.hudyweas.schoolmanagementsystem.Entities;
 
 public enum UserTypes {
     STUDENT("STUDENT"),
@@ -10,5 +10,9 @@ public enum UserTypes {
 
     UserTypes(String userType){
         this.type = userType.toUpperCase();
+    }
+
+    public String getType() {
+        return type;
     }
 }

@@ -1,4 +1,4 @@
-package pl.hudyweas.schoolmanagementsystem;
+package pl.hudyweas.schoolmanagementsystem.Entities;
 
 public abstract class User {
     protected String firstName;

@@ -1,4 +1,4 @@
-package pl.hudyweas.schoolmanagementsystem;
+package pl.hudyweas.schoolmanagementsystem.Entities;
 
 public class StaffMember extends User {
     public StaffMember() {

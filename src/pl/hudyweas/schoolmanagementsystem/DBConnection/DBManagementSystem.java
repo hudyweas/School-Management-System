@@ -1,4 +1,8 @@
-package pl.hudyweas.schoolmanagementsystem;
+package pl.hudyweas.schoolmanagementsystem.DBConnection;
+
+import pl.hudyweas.schoolmanagementsystem.Entities.StaffMember;
+import pl.hudyweas.schoolmanagementsystem.Entities.Student;
+import pl.hudyweas.schoolmanagementsystem.Entities.Teacher;
 
 public class DBManagementSystem {
     DBConnectionSystem database = new DBConnectionSystem();
