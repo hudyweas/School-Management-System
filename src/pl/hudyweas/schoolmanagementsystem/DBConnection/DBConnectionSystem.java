@@ -7,7 +7,7 @@ public class DBConnectionSystem {
     private final static String DBURL = "jdbc:mysql://localhost:3306/school_management_system";
     private final static String DBUSER = "root";
     private final static String DBPASS = "";
-    private final static String DBDRIVER = "com.mysql.jdbc.Driver";
+    private final static String DBDRIVER = "com.mysql.cj.jdbc.Driver";
 
     private Connection conn;
     private Statement stmt;
@@ -42,25 +42,26 @@ public class DBConnectionSystem {
     }
 
     public ResultSet getResultSet(String query) {
-        Statement stmt;
         ResultSet rs = null;
         try {
-            stmt = conn.createStatement();
+            setUpConnectionAndStatement();
 
             if (stmt.execute(query)) {
                 rs = stmt.getResultSet();
             }
+            closeConenctionAndStatement();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
         return rs;
     }
 
     public ArrayList<String> getResultAsArrayList(String query, String... resultSetKeyWords) {
         ArrayList<String> row = new ArrayList<>();
-        Statement stmt;
         try {
-            stmt = conn.createStatement();
+            setUpConnectionAndStatement();
             ResultSet rs = null;
 
             if (stmt.execute(query)) {
@@ -70,8 +71,11 @@ public class DBConnectionSystem {
             while (rs.next()) {
                 row.add(resultSetRowToString(rs, resultSetKeyWords));
             }
+            closeConenctionAndStatement();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
         return row;
     }

@@ -4,5 +4,5 @@ import pl.hudyweas.schoolmanagementsystem.Entities.User;
 import pl.hudyweas.schoolmanagementsystem.Entities.UserTypes;
 
 public interface UserFactory {
-    public User makeUser(UserTypes userType);
+    public User makeUser(String userType);
 }

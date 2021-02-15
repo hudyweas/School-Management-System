@@ -6,8 +6,8 @@ import pl.hudyweas.schoolmanagementsystem.Entities.UserTypes;
 public class UserFactoryImpl implements UserFactory {
 
     @Override
-    public User makeUser(UserTypes usertype) {
-        switch (usertype.getType()){
+    public User makeUser(String usertype) {
+        switch (usertype.toUpperCase()){
             case "ADMIN":
                 return new Admin();
             case "TEACHER":
