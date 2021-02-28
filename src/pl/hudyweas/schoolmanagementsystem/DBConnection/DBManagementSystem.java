@@ -13,10 +13,17 @@ public class DBManagementSystem {
     public DBManagementSystem() {
     }
 
-    public boolean isLoginFree(String login){
-        String query = "SELECT 1 WHERE EXISTS (SELECT login FROM accounts WHERE login='"+login+"')";
-        boolean isFree = database.getResultAsArrayList(query).isEmpty();
+    public boolean isLoginAvailable(String login){
+        String query = "SELECT 1 AS 'XD' WHERE EXISTS (SELECT login FROM accounts WHERE login='"+login+"')";
+        boolean isFree = database.getResultAsArrayList(query, "XD").isEmpty();
         return isFree;
+    }
+
+    public ArrayList<String> getUserDataByUserID(String userID){
+        String query = "SELECT first_name, second_name, userType FROM users WHERE UserID ="+userID;
+        ArrayList<String> data = database.getResultAsArrayList(query, "first_name", "second_name", "userType");
+
+        return data;
     }
 
     public void addUser(User user, String login){
@@ -30,7 +37,7 @@ public class DBManagementSystem {
         String phoneNumber = user.getPhoneNumber();
         String type = user.getType();
 
-        String query = "INSERT INTO `users` (`UserID`, `first_name`, `second_name`, `email_address`, `phone_number`, `address`, `city`, `ZIP_number`, `birthdate`) VALUES (NULL, '"+firstName+"', '"+lastName+"', '', '', '', '', '', '')";
+        String query = "INSERT INTO `users` (`UserID`, `first_name`, `second_name`, `email_address`, `phone_number`, `address`, `city`, `ZIP_number`, `birthdate`, `userType`) VALUES (NULL, '"+firstName+"', '"+lastName+"', '', '', '', '', '', '','"+type+"')";
         database.updateData(query);
 
         String userID = getUserId(user);
@@ -55,12 +62,17 @@ public class DBManagementSystem {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
 
-        String query = "SELECT `UserID` from `users` WHERE `first_name`='"+firstName+"' AND `second_name`='"+lastName+"'";
-        ArrayList<String> userId = database.getResultAsArrayList(query);
-
-        System.out.println(userId);
+        String query = "SELECT `UserID` from `users` WHERE `first_name`='"+firstName+"' AND `second_name`='"+lastName+"' ORDER BY `UserID` DESC";
+        ArrayList<String> userId = database.getResultAsArrayList(query, "UserID");
 
         return userId.get(0);
+    }
+
+    public String getUserId(String login){
+        String query = "SELECT `user_id` FROM accounts WHERE login='"+login+"'";
+        String userID = database.getResultAsArrayList(query, "user_id").get(0);
+
+        return userID;
     }
 
     public void addStudent(String userID){
