@@ -10,7 +10,6 @@ public class DBConnectionSystem {
     private final static String DBDRIVER = "com.mysql.cj.jdbc.Driver";
 
     private Connection conn;
-    private Statement stmt;
 
     public DBConnectionSystem() {
         try {
@@ -20,22 +19,11 @@ public class DBConnectionSystem {
         }
     }
 
-    private void setUpConnectionAndStatement() throws Exception {
-        Class.forName(DBDRIVER).getDeclaredConstructor().newInstance();
-        this.conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
-        this.stmt = conn.createStatement();
-    }
-
-    private void closeConenctionAndStatement() throws Exception{
-        this.stmt.close();
-        this.conn.close();
-    }
-
     public void updateData(String query){
         try{
-            setUpConnectionAndStatement();
+            Statement stmt = conn.createStatement();
+
             stmt.executeUpdate(query);
-            closeConenctionAndStatement();
         }catch (Exception exception){
             exception.printStackTrace();
         }
@@ -44,12 +32,11 @@ public class DBConnectionSystem {
     public ResultSet getResultSet(String query) {
         ResultSet rs = null;
         try {
-            setUpConnectionAndStatement();
+            Statement stmt = conn.createStatement();
 
             if (stmt.execute(query)) {
                 rs = stmt.getResultSet();
             }
-            closeConenctionAndStatement();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (Exception exception) {
@@ -60,8 +47,9 @@ public class DBConnectionSystem {
 
     public ArrayList<String> getResultAsArrayList(String query, String... resultSetKeyWords) {
         ArrayList<String> row = new ArrayList<>();
+        Statement stmt;
         try {
-            setUpConnectionAndStatement();
+            stmt = conn.createStatement();
             ResultSet rs = null;
 
             if (stmt.execute(query)) {
@@ -71,17 +59,14 @@ public class DBConnectionSystem {
             while (rs.next()) {
                 row.add(resultSetRowToString(rs, resultSetKeyWords));
             }
-            closeConenctionAndStatement();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception exception) {
-            exception.printStackTrace();
         }
         return row;
     }
 
     private String resultSetRowToString(ResultSet rs, String... resultSetKeyWords) throws SQLException {
-        StringBuilder output = null;
+        StringBuilder output = new StringBuilder();
         int rsKeyWordsLength = resultSetKeyWords.length;
 
         if (rsKeyWordsLength == 1)
@@ -96,7 +81,7 @@ public class DBConnectionSystem {
     }
 
     private String deleteLastCharFromString(String string) {
-        return string.substring(0, string.length() - 2);
+        return string.substring(0, string.length() - 1);
     }
 
 }

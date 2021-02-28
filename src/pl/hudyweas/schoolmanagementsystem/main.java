@@ -19,8 +19,8 @@ public class main {
 
         User loggedUser;
 
-        if(input == 1){
-            loggedUser = userManagementSystem.createAccount();
+        if(input == 0){
+            loggedUser = userManagementSystem.login();
         }else{
             loggedUser = userManagementSystem.createAccount();
         }

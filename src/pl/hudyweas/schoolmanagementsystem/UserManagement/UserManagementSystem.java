@@ -3,6 +3,7 @@ package pl.hudyweas.schoolmanagementsystem.UserManagement;
 import pl.hudyweas.schoolmanagementsystem.DBConnection.DBManagementSystem;
 import pl.hudyweas.schoolmanagementsystem.Entities.User;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserManagementSystem {
@@ -10,6 +11,31 @@ public class UserManagementSystem {
     DBManagementSystem dbManagementSystem = new DBManagementSystem();
 
     public UserManagementSystem() {
+    }
+
+    public User login(){
+        Scanner in = new Scanner(System.in);
+
+        String login;
+
+        do{
+            System.out.println("Podaj login");
+            login = in.nextLine();
+        }while(dbManagementSystem.isLoginAvailable(login));
+
+        String userID = dbManagementSystem.getUserId(login);
+
+        String[] userData = dbManagementSystem.getUserDataByUserID(userID).get(0).split(";");
+
+        String firstName = userData[0];
+        String secondName = userData[1];
+        String type = userData[2];
+
+        User user  = userFactory.makeUser(type);
+        user.setFirstName(firstName);
+        user.setLastName(secondName);
+
+        return user;
     }
 
     public User createAccount(){
@@ -20,7 +46,7 @@ public class UserManagementSystem {
         do {
             System.out.println("Podaj login");
             login = in.nextLine();
-        }while(!dbManagementSystem.isLoginFree(login));
+        }while(!dbManagementSystem.isLoginAvailable(login));
 
         System.out.println("Podaj imie");
         String firstName = in.nextLine();
