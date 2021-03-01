@@ -1,10 +1,12 @@
-package pl.hudyweas.schoolmanagementsystem;
+package pl.hudyweas.schoolmanagementsystem.UserManagement;
 
-public class UserFactoryImpl implements UserFactory {
+import pl.hudyweas.schoolmanagementsystem.Entities.*;
+
+public class UserBuilderImpl implements UserBuilder {
 
     @Override
-    public User makeUser(UserTypes usertype) {
-        switch (usertype.type){
+    public User makeUser(String usertype) {
+        switch (usertype.toUpperCase()){
             case "ADMIN":
                 return new Admin();
             case "TEACHER":
