@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 28 Lut 2021, 14:05
+-- Czas generowania: 01 Mar 2021, 18:37
 -- Wersja serwera: 10.4.17-MariaDB
 -- Wersja PHP: 8.0.0
 
@@ -41,7 +41,8 @@ CREATE TABLE `accounts` (
 INSERT INTO `accounts` (`AccountID`, `login`, `password`, `user_id`) VALUES
 (1, 'kuba01', '', 19),
 (2, 'kuba02', '', 19),
-(3, 'kuba03', '', 20);
+(3, 'kuba03', '', 20),
+(4, 'kuba05', '', 21);
 
 -- --------------------------------------------------------
 
@@ -91,7 +92,8 @@ INSERT INTO `students` (`StudentID`, `userID`) VALUES
 (4, 19),
 (5, 19),
 (6, 19),
-(7, 20);
+(7, 20),
+(8, 21);
 
 -- --------------------------------------------------------
 
@@ -113,21 +115,21 @@ CREATE TABLE `teachers` (
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
   `first_name` text NOT NULL,
-  `second_name` text NOT NULL,
+  `last_name` text NOT NULL,
   `email_address` text NOT NULL,
   `phone_number` text NOT NULL,
   `address` text NOT NULL,
   `city` text NOT NULL,
   `ZIP_number` text NOT NULL,
   `birthdate` text NOT NULL,
-  `userType` text NOT NULL
+  `user_type` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `users` (`UserID`, `first_name`, `second_name`, `email_address`, `phone_number`, `address`, `city`, `ZIP_number`, `birthdate`, `userType`) VALUES
+INSERT INTO `users` (`UserID`, `first_name`, `last_name`, `email_address`, `phone_number`, `address`, `city`, `ZIP_number`, `birthdate`, `user_type`) VALUES
 (11, 'kuba', 'hudziak', '', '', '', '', '', '', '0'),
 (12, 'Hudziak', 'Hudziak', '', '', '', '', '', '', '0'),
 (13, 'Kuba', 'Hudziak', '', '', '', '', '', '', '0'),
@@ -137,7 +139,8 @@ INSERT INTO `users` (`UserID`, `first_name`, `second_name`, `email_address`, `ph
 (17, 'Jakub', 'Hudziak', '', '', '', '', '', '', '0'),
 (18, 'Jakub', 'Hudziak', '', '', '', '', '', '', '0'),
 (19, 'Jakub', 'Hudziak', '', '', '', '', '', '', '0'),
-(20, 'Kuba', 'Hudziak', '', '', '', '', '', '', 'student');
+(20, 'Kuba', 'Hudziak', '', '', '', '', '', '', 'student'),
+(21, 'Jakub', 'Hudziak', '', '', '', '', '', '', 'student');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -181,7 +184,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT dla tabeli `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `AccountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `AccountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT dla tabeli `staff_members`
@@ -193,7 +196,7 @@ ALTER TABLE `staff_members`
 -- AUTO_INCREMENT dla tabeli `students`
 --
 ALTER TABLE `students`
-  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `teachers`
@@ -205,7 +208,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
