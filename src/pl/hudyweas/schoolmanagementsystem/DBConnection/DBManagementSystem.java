@@ -10,18 +10,15 @@ import java.util.ArrayList;
 public class DBManagementSystem {
     DBConnectionSystem database = new DBConnectionSystem();
 
-    public DBManagementSystem() {
-    }
-
-    public boolean isLoginAvailable(String login){
-        String query = "SELECT 1 AS 'XD' WHERE EXISTS (SELECT login FROM accounts WHERE login='"+login+"')";
-        boolean isFree = database.getResultAsArrayList(query, "XD").isEmpty();
+    public boolean isLoginInDataBase(String login){
+        String query = "SELECT COUNT(*) login FROM accounts WHERE login='"+login+"'";
+        boolean isFree = database.getResultAsArrayList(query, "login").get(0).equals("0");
         return isFree;
     }
 
     public ArrayList<String> getUserDataByUserID(String userID){
-        String query = "SELECT first_name, second_name, userType FROM users WHERE UserID ="+userID;
-        ArrayList<String> data = database.getResultAsArrayList(query, "first_name", "second_name", "userType");
+        String query = "SELECT first_name, last_name, user_type FROM users WHERE UserID ="+userID;
+        ArrayList<String> data = database.getResultAsArrayList(query, "first_name", "last_name", "user_type");
 
         return data;
     }
@@ -37,7 +34,7 @@ public class DBManagementSystem {
         String phoneNumber = user.getPhoneNumber();
         String type = user.getType();
 
-        String query = "INSERT INTO `users` (`UserID`, `first_name`, `second_name`, `email_address`, `phone_number`, `address`, `city`, `ZIP_number`, `birthdate`, `userType`) VALUES (NULL, '"+firstName+"', '"+lastName+"', '', '', '', '', '', '','"+type+"')";
+        String query = "INSERT INTO `users` (`UserID`, `first_name`, `last_name`, `email_address`, `phone_number`, `address`, `city`, `ZIP_number`, `birthdate`, `user_type`) VALUES (NULL, '"+firstName+"', '"+lastName+"', '', '', '', '', '', '','"+type+"')";
         database.updateData(query);
 
         String userID = getUserId(user);
@@ -62,7 +59,7 @@ public class DBManagementSystem {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
 
-        String query = "SELECT `UserID` from `users` WHERE `first_name`='"+firstName+"' AND `second_name`='"+lastName+"' ORDER BY `UserID` DESC";
+        String query = "SELECT `UserID` from `users` WHERE `first_name`='"+firstName+"' AND `last_name`='"+lastName+"' ORDER BY `UserID` DESC";
         ArrayList<String> userId = database.getResultAsArrayList(query, "UserID");
 
         return userId.get(0);
@@ -81,12 +78,12 @@ public class DBManagementSystem {
     }
 
     public void addTeacher(String userID){
-        String query = "INSERT INTO `teachers` (`StudentID`, `userID`) VALUES (NULL, '"+userID+"')";
+        String query = "INSERT INTO `teachers` (`teacherID`, `userID`) VALUES (NULL, '"+userID+"')";
         database.updateData(query);
     }
 
     public void addStaffMember(String userID){
-        String query = "INSERT INTO `staff_members` (`StudentID`, `userID`) VALUES (NULL, '"+userID+"')";
+        String query = "INSERT INTO `staff_members` (`staffMemberID`, `userID`) VALUES (NULL, '"+userID+"')";
         database.updateData(query);
     }
 }

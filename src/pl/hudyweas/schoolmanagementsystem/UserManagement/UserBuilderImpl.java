@@ -1,9 +1,8 @@
 package pl.hudyweas.schoolmanagementsystem.UserManagement;
 
 import pl.hudyweas.schoolmanagementsystem.Entities.*;
-import pl.hudyweas.schoolmanagementsystem.Entities.UserTypes;
 
-public class UserFactoryImpl implements UserFactory {
+public class UserBuilderImpl implements UserBuilder {
 
     @Override
     public User makeUser(String usertype) {

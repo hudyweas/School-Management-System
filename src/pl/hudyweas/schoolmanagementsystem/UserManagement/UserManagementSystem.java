@@ -3,11 +3,10 @@ package pl.hudyweas.schoolmanagementsystem.UserManagement;
 import pl.hudyweas.schoolmanagementsystem.DBConnection.DBManagementSystem;
 import pl.hudyweas.schoolmanagementsystem.Entities.User;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserManagementSystem {
-    UserFactoryImpl userFactory = new UserFactoryImpl();
+    UserBuilderImpl userFactory = new UserBuilderImpl();
     DBManagementSystem dbManagementSystem = new DBManagementSystem();
 
     public UserManagementSystem() {
@@ -21,7 +20,7 @@ public class UserManagementSystem {
         do{
             System.out.println("Podaj login");
             login = in.nextLine();
-        }while(dbManagementSystem.isLoginAvailable(login));
+        }while(dbManagementSystem.isLoginInDataBase(login));
 
         String userID = dbManagementSystem.getUserId(login);
 
@@ -46,7 +45,7 @@ public class UserManagementSystem {
         do {
             System.out.println("Podaj login");
             login = in.nextLine();
-        }while(!dbManagementSystem.isLoginAvailable(login));
+        }while(!dbManagementSystem.isLoginInDataBase(login));
 
         System.out.println("Podaj imie");
         String firstName = in.nextLine();
